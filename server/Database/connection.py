@@ -34,12 +34,12 @@ class Database:
             skip_count = (page - 1) * limit
             limit_page = True
 
-        if limit_page is True and sort_by is True:
+        if limit_page is True and sort_by is not None:
             docs =  await self.model.find_all().sort(sort_by).skip(skip_count).limit(limit).to_list(None)
-        elif limit_page is True and sort_by is False:
+        elif limit_page is True and sort_by is None:
             docs = await self.model.find_all().skip(sort_by).limit(limit).to_list(None)
         else:
-            docs = await self.model.find_all().sort("-totalLoan").to_list(None)
+            docs = await self.model.find_all().sort(sort_by).to_list(None)
         return docs
 
     async def get_by_id(self, id: PydanticObjectId) -> bool:
