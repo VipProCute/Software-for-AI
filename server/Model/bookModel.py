@@ -19,7 +19,7 @@ class Book(Document):
     publisher: str = Field(...)
     publishDate: str = Field(...)
     series: Optional[list[str]] = Field(...)
-
+    totalLoan: int = Field(...)
     class Config:
         schema_extra = {
             "example" : {
@@ -30,7 +30,8 @@ class Book(Document):
                 "numPages": 255,
                 "imageUrl": "https:example.com",
                 "publisher": "NXB NP",
-                "publishDate": "02-03-2003"
+                "publishDate": "02-03-2003",
+                "totalLoan": 10
             }
         }
 
@@ -46,7 +47,7 @@ class BookUpdate(BaseModel):
     publisher: str = Field(...)
     publishDate: str = Field(...)
     series: Optional[list[str]] = Field(...)
-
+    totalLoan: int = Field(...)
     class Config:
         schema_extra = {
             "example": {
@@ -57,7 +58,8 @@ class BookUpdate(BaseModel):
                 "numPages": 255,
                 "imageUrl": "https:example.com",
                 "publisher": "NXB NP",
-                "publishDate": "02-03-2003"
+                "publishDate": "02-03-2003",
+                "totalLoan": 10
             }
         }
 

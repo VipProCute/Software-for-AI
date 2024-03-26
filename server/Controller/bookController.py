@@ -1,7 +1,7 @@
-from typing import List
+from typing import List, Optional
 
 from fastapi import HTTPException
-from pydantic import BaseModel
+
 
 from Database.connection import Database
 from Model.bookModel import Book
@@ -11,8 +11,13 @@ book_database = Database(Book)
 
 class BookController:
     @staticmethod
-    async def get_all_books() -> List[Book]:
-        list_books = await book_database.get_all()
+    async def get_all_books(
+            limit: Optional[int] = None,
+            page: Optional[int] = None,
+            sort_by: Optional[str] = None
+    ) -> List[Book]:
+        list_books = await book_database.get_all(limit=limit, page=page, sort_by=sort_by)
+        #list_books = await book_database.get_all(limit=limit, page=page)
         return list_books
 
     @staticmethod

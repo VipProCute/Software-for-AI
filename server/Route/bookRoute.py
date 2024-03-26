@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from typing import List
+from typing import List, Optional
 from Model.bookModel import Book, BookUpdate
 from Controller.bookController import BookController
 from beanie import PydanticObjectId
@@ -8,8 +8,12 @@ bookRoute = APIRouter(
 )
 
 @bookRoute.get("/", response_model=List[Book])
-async def get_all_books() -> List[Book]:
-    list_book = await BookController.get_all_books()
+async def get_all_books(
+        limit: Optional[int] = None,
+        page: Optional[int] = None,
+        sort_by: Optional[str] = None
+) -> List[Book]:
+    list_book = await BookController.get_all_books(limit=limit, page=page, sort_by=sort_by)
     return list_book
 
 @bookRoute.get("/{id}", response_model=Book)

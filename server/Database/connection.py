@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-
+import enum
 from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie, PydanticObjectId
 from Model.bookModel import Book
@@ -22,9 +22,24 @@ class Database:
     def __init__(self, model):
         self.model = model
 
-    async def get_all(self) -> List[Any]:
-        print("In database")
-        docs = await self.model.find_all().to_list()
+    async def get_all(
+            self,
+            limit: Optional[int] = None,
+            page: Optional[int] = None,
+            sort_by: Optional[str] = None
+    ) -> List[Any]:
+
+        limit_page = False
+        if limit is not None and page is not None:
+            skip_count = (page - 1) * limit
+            limit_page = True
+
+        if limit_page is True and sort_by is True:
+            docs =  await self.model.find_all().sort(sort_by).skip(skip_count).limit(limit).to_list(None)
+        elif limit_page is True and sort_by is False:
+            docs = await self.model.find_all().skip(sort_by).limit(limit).to_list(None)
+        else:
+            docs = await self.model.find_all().sort("-totalLoan").to_list(None)
         return docs
 
     async def get_by_id(self, id: PydanticObjectId) -> bool:
