@@ -5,3 +5,4 @@ typing_extensions~=4.10.0
 fastapi~=0.110.0
 uvicorn~=0.29.0
 motor~=3.3.2
+
