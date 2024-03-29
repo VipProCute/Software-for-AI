@@ -1,11 +1,10 @@
-from fastapi import HTTPException
-import enum
 from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie, PydanticObjectId
 from Model.bookModel import Book
 # from Model.userModel import User
 # from Model.loanModel import Loan
-# from Model.libraryModel import Library
+from Model.libraryModel import Library
+from Model.bookLibraryModel import BookLibrary
 from typing import Optional, List, Any
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
@@ -15,7 +14,7 @@ class Settings(BaseSettings):
     async def initialize_database(self) -> None:
         client = AsyncIOMotorClient("localhost", 27017)
         await init_beanie(database= client.get_default_database("BooksManagement"),
-                          document_models=[Book])
+                          document_models=[Book, Library, BookLibrary])
 
 
 class Database:
@@ -24,25 +23,24 @@ class Database:
 
     async def get_all(
             self,
-            limit: Optional[int] = None,
-            page: Optional[int] = None,
-            sort_by: Optional[str] = None
+            limit: Optional[int] = 10,
+            page: Optional[int] = 1,
+            sort_by: Optional[str] = "_id",
+            slug: Optional[str] = "",
+            query: Optional[dict] = {}
     ) -> List[Any]:
+        query.update({"slug" : {"$regex": slug, "$options": "i"}})
+        skip_count = (page - 1) * limit
 
-        limit_page = False
-        if limit is not None and page is not None:
-            skip_count = (page - 1) * limit
-            limit_page = True
+        try:
+            docs = await self.model.find(query).sort(sort_by).skip(skip_count).limit(limit).to_list()
+            return docs
+        except Exception as e:
+            print(e)
 
-        if limit_page is True and sort_by is not None:
-            docs =  await self.model.find_all().sort(sort_by).skip(skip_count).limit(limit).to_list(None)
-        elif limit_page is True and sort_by is None:
-            docs = await self.model.find_all().skip(sort_by).limit(limit).to_list(None)
-        else:
-            docs = await self.model.find_all().sort(sort_by).to_list(None)
-        return docs
 
-    async def get_by_id(self, id: PydanticObjectId) -> bool:
+
+    async def get_one(self, id: PydanticObjectId) -> bool:
         doc = await self.model.get(id)
         if doc:
             return doc

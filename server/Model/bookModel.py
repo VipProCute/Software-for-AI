@@ -10,6 +10,7 @@ PyObjectId = Annotated[str, BeforeValidator(str)]
 
 class Book(Document):
     title: str = Field(...)
+    slug: str = Field(...)
     author: List[str] = Field(...)
     genres: Optional[List[str]] = Field(...)
     description: str = Field(...)
@@ -63,31 +64,4 @@ class BookUpdate(BaseModel):
             }
         }
 
-
-class BookInLib(Document):
-    realID: PydanticObjectId = Field(...)
-    totalNum: int = Field(...)
-    currentNum: int = Field(...)
-
-    class Config:
-        schema_extra = {
-            "example": {
-                "realID": "65ff949550eba541c59a9cb4",
-                "totalNum": 10,
-                "currentNum": 5
-            }
-        }
-
-class BookInLibUpdate(BaseModel):
-    realID: PydanticObjectId = Field(...)
-    totalNum: int = Field(...)
-    currentNum: int = Field(...)
-    class Config:
-        schema_extra = {
-            "example": {
-                "realID": "65ff949550eba541c59a9cb4",
-                "totalNum": 10,
-                "currentNum": 5
-            }
-        }
 
