@@ -2,22 +2,18 @@ import Link from "next/link";
 
 export default function TopBar() {
   return (
-    <div className="navbar bg-main-color">
+    <div className="navbar ">
       <div className="flex-none ">
         <div className="w-10 rounded">
           <img src="/logo.png" alt="Logo" />
         </div>
       </div>
       <div className="flex-none pr-10">
-        <span className="text-lg">Mượn sách đi</span>
+        <span className="text-lg">BOBO</span>
       </div>
-      <div className="flex-1 flex items-center justify-center">
-        <label className="input input-md input-bordered w-full flex items-center gap-2 pr-0">
-          <input
-            type="text"
-            className="grow"
-            placeholder="Bạn tìm sách gì hôm nay"
-          />
+      <div className="flex-1 flex items-center justify-start">
+        <label className="input input-md input-bordered flex items-center gap-2 px-2 ml-20">
+          <input type="text" className="grow" placeholder="Tìm kiếm" />
           <button className="btn btn-square btn-ghost">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -34,49 +30,90 @@ export default function TopBar() {
           </button>
         </label>
       </div>
-      <div className="flex justified-end space-x-8 px-5">
-        <button className="btn btn-square btn-ghost whitespace-nowrap text-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 448 512"
-            className="w-8 h-4 opacity-70"
+      <div className="navbar-end">
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+            <div className="indicator">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                />
+              </svg>
+              <span className="badge badge-sm indicator-item">8</span>
+            </div>
+          </div>
+          <div
+            tabIndex={0}
+            className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
           >
-            <path
-              fillRule="evenodd"
-              d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v25.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416H424c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm0 96c61.9 0 112 50.1 112 112v25.4c0 47.9 13.9 94.6 39.7 134.6H72.3C98.1 328 112 281.3 112 233.4V208c0-61.9 50.1-112 112-112zm64 352H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7s18.7-28.3 18.7-45.3z"
-              clipRule="evenodd"
-            ></path>
-          </svg>
-          Thông báo
+            <div className="card-body">
+              <span className="font-bold text-lg">8 Items</span>
+              <span className="text-info">Subtotal: $999</span>
+              <div className="card-actions">
+                <button className="btn btn-primary btn-block">View cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button className="btn btn-ghost btn-circle">
+          <div className="indicator">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+              />
+            </svg>
+            <span className="badge badge-xs badge-primary indicator-item"></span>
+          </div>
         </button>
-        <button className="btn btn-square btn-ghost whitespace-nowrap text-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 448 512"
-            className="w-8 h-4 opacity-70"
+        <div className="dropdown dropdown-end">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost btn-circle avatar"
           >
-            <path
-              fillRule="evenodd"
-              d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192H400V448c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192z"
-              clipRule="evenodd"
-            ></path>
-          </svg>
-          Lịch hẹn
-        </button>
-        <button className="btn btn-square btn-ghost whitespace-nowrap text-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 448 512"
-            className="w-8 h-4 opacity-70"
+            <div className="w-10 rounded-full">
+              <img
+                alt="Tailwind CSS Navbar component"
+                src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/10f13510774061.560eadfde5b61.png"
+              />
+            </div>
+          </div>
+          <ul
+            tabIndex={0}
+            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
           >
-            <path
-              fillRule="evenodd"
-              d="M96 128a128 128 0 1 0 256 0A128 128 0 1 0 96 128zm94.5 200.2l18.6 31L175.8 483.1l-36-146.9c-2-8.1-9.8-13.4-17.9-11.3C51.9 342.4 0 405.8 0 481.3c0 17 13.8 30.7 30.7 30.7H162.5c0 0 0 0 .1 0H168 280h5.5c0 0 0 0 .1 0H417.3c17 0 30.7-13.8 30.7-30.7c0-75.5-51.9-138.9-121.9-156.4c-8.1-2-15.9 3.3-17.9 11.3l-36 146.9L238.9 359.2l18.6-31c6.4-10.7-1.3-24.2-13.7-24.2H224 204.3c-12.4 0-20.1 13.6-13.7 24.2z"
-              clipRule="evenodd"
-            ></path>
-          </svg>
-          Tài khoản
-        </button>
+            <li>
+              <a className="justify-between">
+                Profile
+                <span className="badge">New</span>
+              </a>
+            </li>
+            <li>
+              <a>Settings</a>
+            </li>
+            <li>
+              <a>Logout</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );
