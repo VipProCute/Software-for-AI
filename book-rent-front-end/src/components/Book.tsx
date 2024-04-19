@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 function Book({ data }: { data: any }) {
   // const srcImg = "/{data.imageUrl}";
   return (
@@ -8,9 +9,12 @@ function Book({ data }: { data: any }) {
       </figure>
       <div className="item-center text-center h-15 py-0 ">
         <div>
-          <h2 className="card-title text-sm b-0 justify-center ">
+          <Link
+            href={`/user/book/${data.slug}`}
+            className="card-title text-sm b-0 justify-center "
+          >
             {data.title}
-          </h2>
+          </Link>
           <p className="text-xs py-3 text-center">{data.author}</p>
         </div>
       </div>
@@ -24,7 +28,10 @@ function BookSide({ data }: { data: any }) {
         <img src={data.imageUrl} alt="Book Image" className="max-h-48  " />
       </figure>
       <div className="card-body p-0  self-center col-span-2 items-center">
-        <h2 className="card-title text-xs "> {data.title}</h2>
+        <Link href={`/book/${data.slug}`} className="card-title text-xs ">
+          {" "}
+          {data.title}
+        </Link>
         <p className="text-xs">{data.author}</p>
         <div className="card-actions justify-end">
           <button className="btn btn-xs btn-primary">Read</button>

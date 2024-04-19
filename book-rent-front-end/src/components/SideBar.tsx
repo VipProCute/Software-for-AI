@@ -1,8 +1,10 @@
+import Link from "next/link";
+
 export default function SideBar() {
   return (
     <ul className="menu w-56 rounded-box bg-white">
       <li>
-        <a>
+        <Link href="/user/home">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -18,10 +20,10 @@ export default function SideBar() {
             />
           </svg>
           Trang chủ
-        </a>
+        </Link>
       </li>
       <li>
-        <a>
+        <Link href="/user/book">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -37,7 +39,7 @@ export default function SideBar() {
             />
           </svg>
           Khám phá
-        </a>
+        </Link>
       </li>
       <li>
         <a>

@@ -20,11 +20,30 @@ class BookController:
         #list_books = await book_database.get_all(limit=limit, page=page)
         return books
 
+    # @staticmethod
+    # async def get_book(id: Optional[PydanticObjectId] = None, slug: Optional[str] = None) -> Book:
+    #     if id is not None:
+    #         book = await book_database.get_one(id)
+    #     elif slug is not None:
+    #         book = await book_database.get_one_by_slug(slug)
+    #     else:
+    #         raise HTTPException(status_code=400, detail="Either an ID or a slug must be provided")
+
+    #     if not book:
+    #         raise HTTPException(status_code=404, detail="Book not found")
+
+    #     return book
+
     @staticmethod
-    async def get_book(id: PydanticObjectId) -> Book:
-        book = await book_database.get_one(id)
+    async def get_book(slug: Optional[str] = None) -> Book:
+        if slug is not None:
+            book = await book_database.get_one_by_slug(slug)
+        else:
+            raise HTTPException(status_code=400, detail="Either an ID or a slug must be provided")
+
         if not book:
             raise HTTPException(status_code=404, detail="Book not found")
+
         return book
 
     @staticmethod

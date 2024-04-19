@@ -3,7 +3,15 @@
 import { useState } from "react";
 import Newest from "./Newest";
 import Trend from "./Trend";
-
+const fetchData = async (setBooks) => {
+  try {
+    const res = await fetch("http://localhost:8000/book/");
+    const data = await res.json();
+    setBooks(data);
+  } catch (error) {
+    console.log("Fetch error: ", error);
+  }
+};
 export default function Content() {
   const [content, setContent] = useState("Trending");
 
@@ -31,7 +39,11 @@ export default function Content() {
           </a>
         </li>
       </ul>
-      {content === "Trending" ? <Trend /> : <Newest />}
+      {content === "Trending" ? (
+        <Trend />
+      ) : (
+        <Newest fetch={fetchData} itemsPerPage={8} />
+      )}
     </div>
   );
 }

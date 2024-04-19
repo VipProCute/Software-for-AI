@@ -45,6 +45,12 @@ class Database:
         if doc:
             return doc
         return False
+    
+    async def get_one_by_slug(self, slug: str) -> bool:
+        doc = await self.model.find_one({"slug": slug})
+        if doc:
+            return doc
+        return False
 
     async def create(self, document) -> None:
         await self.model.insert_one(document)
