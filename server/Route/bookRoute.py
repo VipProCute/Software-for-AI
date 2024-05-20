@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from typing import List, Optional
 from Model.bookModel import Book, BookUpdate
 from Controller.bookController import BookController
@@ -7,15 +7,19 @@ bookRoute = APIRouter(
     tags= ["Book"]
 )
 
-@bookRoute.get("/", response_model=List[Book])
+@bookRoute.get("", response_model=List[Book])
 async def get_all_books(
         limit: Optional[int] = 10,
         page: Optional[int] = 1,
         sort_by: Optional[str] = "_id",
-        #name: Optional[str] = None
         slug: Optional[str] = "",
+        genres: Optional[List[str]] = Query(None, alias="genres"),
+        publisher: Optional[str] = Query(None, alias="publisher"),
+        language: Optional[str] = Query(None, alias="language")
 ) -> List[Book]:
-    list_book = await BookController.get_books(limit=limit, page=page, sort_by=sort_by, slug= slug)
+    list_book = await BookController.get_books(limit=limit, page=page, sort_by=sort_by,
+                                               slug= slug, genres=genres, publisher=publisher,
+                                               language=language)
     return list_book
 
 @bookRoute.get("/{id}", response_model=Book)
@@ -30,6 +34,7 @@ async def create_book(body:Book) -> dict:
 
 @bookRoute.put("/{id}", response_model=Book)
 async def update_book(body:BookUpdate, id: PydanticObjectId) -> Book:
+    print("Xin chao")
     book = await BookController.update_book(body, id)
     return book
 

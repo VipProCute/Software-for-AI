@@ -1,5 +1,5 @@
 from typing import List, Optional
-from fastapi import HTTPException
+from fastapi import HTTPException, Query
 from Database.connection import Database
 from Model.bookModel import Book
 from  beanie import init_beanie, PydanticObjectId
@@ -14,10 +14,23 @@ class BookController:
             page: Optional[int] = 1,
             sort_by: Optional[str] = "_id",
             slug: Optional[str] = "",
-
+            libraryID: Optional[PydanticObjectId] = None,
+            genres: Optional[List[str]] = None,
+            publisher: Optional[str] = None,
+            language: Optional[str] = None,
     ) -> List[Book]:
-        books = await book_database.get_all(limit= limit, page= page, sort_by= sort_by, slug= slug)
-        #list_books = await book_database.get_all(limit=limit, page=page)
+        query = {}
+
+        if libraryID is not None:
+            query.update({"libraryID": libraryID})
+        if genres is not None:
+            query.update({"genres": {"$all":genres}})
+        if publisher is not None:
+            query.update({"publisher": publisher})
+        if language is not None:
+            query.update({"language": language})
+        books = await book_database.get_all(limit= limit, page= page, sort_by= sort_by, slug= slug, query=query)
+
         return books
 
     @staticmethod

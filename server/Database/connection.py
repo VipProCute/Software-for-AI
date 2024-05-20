@@ -4,7 +4,6 @@ from Model.bookModel import Book
 # from Model.userModel import User
 # from Model.loanModel import Loan
 from Model.libraryModel import Library
-from Model.bookLibraryModel import BookLibrary
 from typing import Optional, List, Any
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
@@ -14,7 +13,7 @@ class Settings(BaseSettings):
     async def initialize_database(self) -> None:
         client = AsyncIOMotorClient("localhost", 27017)
         await init_beanie(database= client.get_default_database("BooksManagement"),
-                          document_models=[Book, Library, BookLibrary])
+                          document_models=[Book, Library])
 
 
 class Database:
@@ -31,14 +30,11 @@ class Database:
     ) -> List[Any]:
         query.update({"slug" : {"$regex": slug, "$options": "i"}})
         skip_count = (page - 1) * limit
-
         try:
             docs = await self.model.find(query).sort(sort_by).skip(skip_count).limit(limit).to_list()
             return docs
         except Exception as e:
             print(e)
-
-
 
     async def get_one(self, id: PydanticObjectId) -> bool:
         doc = await self.model.get(id)
