@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react";
-import {Tabs, Tab, Input, Link, Button, Card, CardBody, CardHeader} from "@nextui-org/react";
+import {Tabs, Tab, Card, CardBody} from "@nextui-org/react";
 import LoginCard from "./loginCard";
 
 export default function TabCard() {

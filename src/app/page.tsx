@@ -1,6 +1,8 @@
+// This page is for login
+
 import Image from "next/image"
-import TabCard from "../components/tabCard";
-import BoboCard from "../components/boboCard";
+import TabCard from "../components/login/tabCard";
+import BoboCard from "../components/login/boboCard";
 
 export default function Home() {
   return (

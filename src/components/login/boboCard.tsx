@@ -1,10 +1,10 @@
 "use client"
 
 import React from "react";
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
+import {Navbar, NavbarBrand} from "@nextui-org/react";
 import Image from "next/image";
 
-export default function App() {
+export default function BoboCard() {
   return (
     <Navbar>
       <NavbarBrand>

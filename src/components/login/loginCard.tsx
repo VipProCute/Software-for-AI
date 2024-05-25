@@ -16,7 +16,7 @@ function SignUpAsk({isUser} : {isUser: boolean}) {
     return (
       <div className="mt-4 text-center text-sm">
           Chưa có tài khoản ? {" "}
-        <Link href="#" className="underline">
+        <Link href="/sign_up" className="underline">
           Đăng ký
         </Link>
       </div>
@@ -43,7 +43,7 @@ export default function LoginCard({description, isUser} : {description: string, 
           <div className="grid gap-2">
             <div className="flex items-center">
               <Label htmlFor="password">Mật khẩu</Label>
-              <Link href="#" className="ml-auto inline-block text-sm underline">
+              <Link href="/forgot_password" className="ml-auto inline-block text-sm underline">
                 Quên mật khẩu ?
               </Link>
             </div>
