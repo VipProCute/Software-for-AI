@@ -20,7 +20,7 @@ const SideBar = () => {
                     text: "Cấp tài khoản"
                 },
                 {
-                    link: "/",
+                    link: "/manageAccount",
                     icon: <UsersRound size={20} strokeWidth={2.5} />,
                     text: "Quản lý tài khoản"
                 },

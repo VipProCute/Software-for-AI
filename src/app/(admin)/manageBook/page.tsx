@@ -1,9 +1,10 @@
+import BookTable from '@/components/manage-book-table'
 import React from 'react'
 
 const ManageBook = () => {
   return (
-    <div>
-      Đây là trang quản lý sách nè
+    <div className='px-[20px]'>
+      <BookTable />
     </div>
   )
 }

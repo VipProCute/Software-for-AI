@@ -19,8 +19,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${nunito.className} flex items-start justify-between`}>
         <SideBar />
-        <main className="grid w-full h-full pl-[250px]">
-          <Header />
+        <main className="w-full h-full pl-[250px]">
+          {/* <Header /> */}
           {children}
         </main>
       </body>
