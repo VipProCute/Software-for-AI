@@ -13,6 +13,18 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
 import { ArrowUpDown, Trash2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -265,7 +277,23 @@ export const columns: ColumnDef<Accounts>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       return (
-        <Button variant="ghost"><Trash2 size={16} /></Button>
+        <AlertDialog>
+          <AlertDialogTrigger>
+            <Button variant="ghost"><Trash2 size={16} /></Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Bạn có chắc chắn muốn xóa sách này?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Hành động này không thể được hoàn tác và sẽ xóa vĩnh viễn dữ liệu của sách khỏi máy chủ của chúng tôi.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>Continue</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       )
     },
   },
