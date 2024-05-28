@@ -1,19 +1,18 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie, PydanticObjectId
 from Model.bookModel import Book
-# from Model.userModel import User
-# from Model.loanModel import Loan
+from Model.borrowModel import Borrow
 from Model.libraryModel import Library
 from typing import Optional, List, Any
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
-    db_url: Optional[str] = 'mongodb://localhost:27017'
+    db_url: Optional[str] = "mongodb+srv://admin:nfPOPZZrWWKKim5D@haiimphuong.pehm7k8.mongodb.net/"
 
     async def initialize_database(self) -> None:
-        client = AsyncIOMotorClient("localhost", 27017)
+        client = AsyncIOMotorClient("mongodb+srv://admin:nfPOPZZrWWKKim5D@haiimphuong.pehm7k8.mongodb.net/")
         await init_beanie(database= client.get_default_database("BooksManagement"),
-                          document_models=[Book, Library])
+                          document_models=[Book, Library, Borrow])
 
 
 class Database:
@@ -25,11 +24,15 @@ class Database:
             limit: Optional[int] = 10,
             page: Optional[int] = 1,
             sort_by: Optional[str] = "_id",
-            slug: Optional[str] = "",
+            slug: Optional[str] = None,
             query: Optional[dict] = {}
     ) -> List[Any]:
-        query.update({"slug" : {"$regex": slug, "$options": "i"}})
+
+        if slug is not None:
+            query.update({"slug" : {"$regex": slug, "$options": "i"}})
+
         skip_count = (page - 1) * limit
+
         try:
             docs = await self.model.find(query).sort(sort_by).skip(skip_count).limit(limit).to_list()
             return docs

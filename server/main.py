@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from Route.bookRoute import bookRoute
+from Route.borrowRoute import borrowRoute
 from Route.libraryRoute import libraryRoute
 from Database.connection import Settings
 import uvicorn
@@ -10,6 +11,7 @@ settings = Settings()
 
 app.include_router(bookRoute, prefix="/books")
 app.include_router(libraryRoute, prefix="/libraries")
+app.include_router(borrowRoute, prefix="/borrows")
 
 
 @app.on_event("startup")
