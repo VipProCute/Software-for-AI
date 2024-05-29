@@ -1,9 +1,13 @@
+import "@/styles/globals.css"
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "@/styles/globals.css";
-import { Providers } from "./providers";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Inter as FontSans } from "next/font/google";
+import { cn } from "@/lib/utils"
+import SiteFooter from "@/components/user/footer";
+ 
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+})
 
 export const metadata: Metadata = {
   title: "Thư viện Bobo",
@@ -17,10 +21,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Providers>
-          {children}
-        </Providers>
+      <body 
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}
+      >
+        {children}
+        <SiteFooter/>
       </body>
     </html>
   );
