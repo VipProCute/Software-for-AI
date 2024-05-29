@@ -1,36 +1,36 @@
-"use client"
-
-import React from "react";
-import {Tabs, Tab, Card, CardBody} from "@nextui-org/react";
-import LoginCard from "./loginCard";
+import { 
+    Tabs,
+    TabsList,
+    TabsTrigger,
+    TabsContent
+} from "@/components/ui/tabs"
+import LoginCard from "@/components/login/signinCard"
 
 export default function TabCard() {
-  const [selected, setSelected] = React.useState<string | number>("user");
+    return (
+        <div className="flex flex-col w-full">
+            <Tabs
+                defaultValue="user"
+                className="max-w-full w-auto h-auto bg-slate-50"
+            >
+                <TabsList className="grid w-full grid-cols-3">
+                    <TabsTrigger value="user">Người dùng</TabsTrigger>
+                    <TabsTrigger value="library">Thư viện</TabsTrigger>
+                    <TabsTrigger value="admin">Quản trị viên</TabsTrigger>
+                </TabsList>
 
-  return (
-    <div className="flex flex-col w-full">
-      <Card className="max-w-full w-auto h-auto bg-slate-50">
-        <CardBody className="overflow-hidden">
-          <Tabs
-            fullWidth
-            size="md"
-            aria-label="Tabs form"
-            variant="light"
-            selectedKey={selected}
-            onSelectionChange={setSelected}
-          >
-            <Tab key="user" title="Người mượn sách">
-              <LoginCard description="Dành cho người mượn sách" isUser={true} />
-            </Tab>
-            <Tab key="library" title="Thư viện">
-              <LoginCard description="Dành cho thư viện" isUser={false}/>
-            </Tab>
-            <Tab key="admin" title="Quản trị viên">
-              <LoginCard description="Dành cho quản trị viên" isUser={false}/>
-            </Tab>
-          </Tabs>
-        </CardBody>
-      </Card>
-    </div>
-  );
+                <TabsContent value="user">
+                     <LoginCard description="Dành cho người mượn sách" isUser={true} />
+                </TabsContent>
+
+                <TabsContent value="library">
+                    <LoginCard description="Dành cho thư viện" isUser={false}/>
+                </TabsContent>
+
+                <TabsContent value="admin">
+                    <LoginCard description="Dành cho quản trị viên" isUser={false}/>
+                </TabsContent>
+            </Tabs>
+        </div>
+    )
 }
