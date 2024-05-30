@@ -20,12 +20,9 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
-const emailOptions = ["m@example.com", "m@google.com", "m@support.com"]
 
 const rangeBorrowDays = Array.from({ length: 96 }, (_, i) => (i + 5).toString())
 
