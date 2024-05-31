@@ -5,9 +5,8 @@ from beanie import init_beanie, PydanticObjectId
 from Model.userModel import User
 from Model.userModel import UserUpdate
 
-from passlib.context import CryptContext
+import hashlib
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 user_database = Database(User)
 
 class UserController:
@@ -17,7 +16,7 @@ class UserController:
         #if existing_user:
         #    raise HTTPException(status_code=400, detail="Username already registered")
         
-        hashed_password = pwd_context.hash(user.password)
+        hashed_password = hashlib.md5(user.password.encode()).hexdigest()
         
         new_user = User(
             username=user.username,
@@ -37,8 +36,15 @@ class UserController:
     async def update_user(body: UserUpdate, id: PydanticObjectId) -> User:
         user = await user_database.get_one(id)
         if not user:
-            raise HTTPException(status_code=404,detail= "Can't Update User")
-            
+            raise HTTPException(status_code=404,detail= "Can't Find User")
+
+        hashed_password = hashlib.md5(body.password.encode()).hexdigest()
+
+        if user.password != hashed_password:
+            raise HTTPException(status_code=404,detail= "Password Not Match")
+
+        body.password = hashed_password
+
         user = await user_database.update(id=id, body=body)
 
         return user
