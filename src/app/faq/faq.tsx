@@ -17,8 +17,6 @@ async function getData() {
   return res.json();
 }
 
-import ChatPage from "./chatbot2.jsx";
-
 // const extractQuestionsAndAnswers = (data) => {
 //   return data.map((item) => {
 //     return {
