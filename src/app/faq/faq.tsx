@@ -17,15 +17,6 @@ async function getData() {
   return res.json();
 }
 
-// const extractQuestionsAndAnswers = (data) => {
-//   return data.map((item) => {
-//     return {
-//       question: item.attributes.question,
-//       answer: item.attributes.answer[0].children[0].text,
-//     };
-//   });
-// };
-
 const extractQuestionsAndAnswers = (data) => {
   return data
     .map((item) => {
