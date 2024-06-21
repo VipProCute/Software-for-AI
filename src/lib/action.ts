@@ -52,7 +52,7 @@ export async function DeleteBook(ID: string, token: string) {
         }
     });
     revalidatePath("/admin/books");
-}
+}   
 
 export async function Revalidate(tag: string) {
     revalidateTag(tag);
